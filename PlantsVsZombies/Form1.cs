@@ -12,6 +12,10 @@ namespace PlantsVsZombies
 {
     public partial class Form1 : Form
     {
+        List<zombie> zombieList = new List<zombie>();
+        List<sunflower> sunflowerList = new List<sunflower>();
+        List<peashooter> peashooterList = new List<peashooter>();
+
         public Form1()
         {
             InitializeComponent();

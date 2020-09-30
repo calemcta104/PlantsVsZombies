@@ -8,5 +8,19 @@ namespace PlantsVsZombies
 {
     class zombie
     {
+        int size, x, y;
+
+        public zombie(int _size, int _x, int _y)
+        {
+            size = _size;
+            x = _x;
+            y = _y;
+        }
+
+        public void Move(int speed)
+        {
+            x -= speed;
+        }
+
     }
 }
