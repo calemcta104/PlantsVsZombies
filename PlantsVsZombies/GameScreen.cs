@@ -108,6 +108,10 @@ namespace PlantsVsZombies
         }
         public void PlaceCancel()
         {
+            shovelMode = false;
+            peashooterPlaceMode = false;
+            sunflowerPlaceMode = false;
+
             row1Space1Button.Visible = false;
             row1Space2Button.Visible = false;
             row1Space3Button.Visible = false;
@@ -162,9 +166,6 @@ namespace PlantsVsZombies
 
         private void placeCancelButton_Click(object sender, EventArgs e)
         {
-            shovelMode = false;
-            peashooterPlaceMode = false;
-            sunflowerPlaceMode = false;
             PlaceCancel();
         }
         #endregion
@@ -182,11 +183,22 @@ namespace PlantsVsZombies
             //update movement of peas
             //check for collision of zombies and peas
             //check for collision of plants and zombies
-            //when plants are placed start plant timers
 
             //updating sun label
             sunLabel.Text = sun + " Sun";
 
+
+            // creating rectangles for plants
+            for (int i = 0; i < peashooterList.Count && i < sunflowerList.Count; i++)
+            {
+                Rectangle peashooterRec = new Rectangle(peashooterList[i].x, peashooterList[i].y, plantSize, plantSize);
+                Rectangle sunflowerRec = new Rectangle(sunflowerList[i].x, sunflowerList[i].y, plantSize, plantSize);
+                Rectangle zombieRec = new Rectangle(zombieList[i].x, zombieList[i].y, zombieSize, zombieSize);
+                if (zombieRec.IntersectsWith(sunflowerRec) || zombieRec.IntersectsWith(peashooterRec))
+                {
+                    gameLoop.Enabled = false;
+                }
+            }
 
             //checking to see if places modes are activated
             if (peashooterPlaceMode == true)
@@ -202,20 +214,20 @@ namespace PlantsVsZombies
                 Shovel();
             }
 
-            //placing plants
-            //if (pea11)
-            // {peashooter pea1 = new peashooter() }
-
             //end game
             foreach (zombie z in zombieList)
             {
                 if (z.x < 0)
                 {
                     gameLoop.Enabled = false;
+                    sunflowerTimer.Enabled = false;
+                    peashooterTimer.Enabled = false;
+                    zombieTimer.Enabled = false;
                 }
             }
             Refresh();
         }
+
 
         private void sunflowerTimer_Tick(object sender, EventArgs e)
         {
@@ -242,7 +254,8 @@ namespace PlantsVsZombies
             {
                 sunflower sunflower1 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
                 sunflowerList.Add(sunflower1);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -255,7 +268,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea2 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea2 = new peashooter(plantSize, 260 - plantSize, laneOneHeight + plantSize * 2);
                 peashooterList.Add(pea2);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -263,9 +276,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower2 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower2 = new sunflower(plantSize, 260 - plantSize, laneOneHeight + plantSize * 2);
                 sunflowerList.Add(sunflower2);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -278,7 +292,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea3 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea3 = new peashooter(plantSize, 340 - plantSize, laneOneHeight + plantSize * 2);
                 peashooterList.Add(pea3);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -286,9 +300,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower3 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower3 = new sunflower(plantSize, 340 - plantSize, laneOneHeight + plantSize * 2);
                 sunflowerList.Add(sunflower3);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -301,7 +316,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea4 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea4 = new peashooter(plantSize, 410 - plantSize, laneOneHeight + plantSize * 2);
                 peashooterList.Add(pea4);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -309,9 +324,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower4 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower4 = new sunflower(plantSize, 410 - plantSize, laneOneHeight + plantSize * 2);
                 sunflowerList.Add(sunflower4);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -324,7 +340,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea5 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea5 = new peashooter(plantSize, 485 - plantSize, laneOneHeight + plantSize * 2);
                 peashooterList.Add(pea5);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -332,9 +348,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower5 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower5 = new sunflower(plantSize, 485 - plantSize, laneOneHeight + plantSize * 2);
                 sunflowerList.Add(sunflower5);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -347,7 +364,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea6 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea6 = new peashooter(plantSize, 190 - plantSize, laneTwoHeight + plantSize * 2);
                 peashooterList.Add(pea6);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -355,9 +372,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower6 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower6 = new sunflower(plantSize, 190 - plantSize, laneTwoHeight + plantSize * 2);
                 sunflowerList.Add(sunflower6);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -370,7 +388,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea7 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea7 = new peashooter(plantSize, 260 - plantSize, laneTwoHeight + plantSize * 2);
                 peashooterList.Add(pea7);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -378,9 +396,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower7 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower7 = new sunflower(plantSize, 260 - plantSize, laneTwoHeight + plantSize * 2);
                 sunflowerList.Add(sunflower7);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -393,7 +412,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea8 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea8 = new peashooter(plantSize, 340 - plantSize, laneTwoHeight + plantSize * 2);
                 peashooterList.Add(pea8);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -401,9 +420,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower8 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower8 = new sunflower(plantSize, 340 - plantSize, laneTwoHeight + plantSize * 2);
                 sunflowerList.Add(sunflower8);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -416,7 +436,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea9 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea9 = new peashooter(plantSize, 410 - plantSize, laneTwoHeight + plantSize * 2);
                 peashooterList.Add(pea9);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -424,9 +444,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower9 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower9 = new sunflower(plantSize, 410 - plantSize, laneTwoHeight + plantSize * 2);
                 sunflowerList.Add(sunflower9);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
@@ -439,7 +460,7 @@ namespace PlantsVsZombies
         {
             if (peashooterPlaceMode == true)
             {
-                peashooter pea10 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooter pea10 = new peashooter(plantSize, 485 - plantSize, laneTwoHeight + plantSize * 2);
                 peashooterList.Add(pea10);
                 if (peashooterTimer.Enabled == false)
                 { peashooterTimer.Enabled = true; }
@@ -447,9 +468,10 @@ namespace PlantsVsZombies
             }
             else if (sunflowerPlaceMode == true)
             {
-                sunflower sunflower10 = new sunflower(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                sunflower sunflower10 = new sunflower(plantSize, 485 - plantSize, laneTwoHeight + plantSize * 2);
                 sunflowerList.Add(sunflower10);
-                sunflowerTimer.Enabled = true;
+                if (sunflowerTimer.Enabled == false)
+                { sunflowerTimer.Enabled = true; }
                 PlaceCancel();
             }
             else if (shovelMode == true)
