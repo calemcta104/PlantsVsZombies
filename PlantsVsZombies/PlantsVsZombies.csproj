@@ -107,5 +107,35 @@
   <ItemGroup>
     <None Include="Resources\Grave.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pVzBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shovel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\peashooter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sunflowerLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sunflowerUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sunflowerRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sunflowerRightFix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zombie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pVzBackgroundFix.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZombieEye.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

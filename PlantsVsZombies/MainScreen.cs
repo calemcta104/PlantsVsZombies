@@ -16,17 +16,20 @@ namespace PlantsVsZombies
         {
             InitializeComponent();
         }
-        private void playButton_Click_1(object sender, EventArgs e)
+
+        private void quitButton_Click_1(object sender, EventArgs e)
+        {
+            //TODO - close program
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
             Form f = this.FindForm();
             f.Controls.Remove(this);
 
             GameScreen gs = new GameScreen();
-        }
 
-        private void quitButton_Click_1(object sender, EventArgs e)
-        {
-            //TODO - close program
+            f.Controls.Add(gs);
         }
     }
 }

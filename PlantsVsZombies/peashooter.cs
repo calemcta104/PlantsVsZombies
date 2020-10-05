@@ -8,7 +8,7 @@ namespace PlantsVsZombies
 {
     class peashooter
     {
-        int size, x, y;
+        public int size, x, y;
 
         public peashooter(int _size, int _x, int _y)
         {

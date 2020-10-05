@@ -8,13 +8,14 @@ namespace PlantsVsZombies
 {
     class zombie
     {
-        int size, x, y;
+        public int size, x, y, health;
 
-        public zombie(int _size, int _x, int _y)
+        public zombie(int _size, int _x, int _y, int _health)
         {
             size = _size;
             x = _x;
             y = _y;
+            health = _health;
         }
 
         public void Move(int speed)
