@@ -189,7 +189,7 @@ namespace PlantsVsZombies
 
 
             // creating rectangles for plants
-            for (int i = 0; i < peashooterList.Count && i < sunflowerList.Count; i++)
+            for (int i = 0; i < peashooterList.Count && i < sunflowerList.Count && i < zombieList.Count; i++)
             {
                 Rectangle peashooterRec = new Rectangle(peashooterList[i].x, peashooterList[i].y, plantSize, plantSize);
                 Rectangle sunflowerRec = new Rectangle(sunflowerList[i].x, sunflowerList[i].y, plantSize, plantSize);
