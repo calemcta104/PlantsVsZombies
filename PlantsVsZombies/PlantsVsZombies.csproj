@@ -64,6 +64,7 @@
     <Compile Include="MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pea.cs" />
     <Compile Include="peashooter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ZombieEye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pea go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

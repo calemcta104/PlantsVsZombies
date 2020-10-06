@@ -73,6 +73,16 @@ namespace PlantsVsZombies.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pea_go {
+            get {
+                object obj = ResourceManager.GetObject("pea_go", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap peashooter {
             get {
                 object obj = ResourceManager.GetObject("peashooter", resourceCulture);

@@ -51,6 +51,7 @@
             this.peashooterTimer = new System.Windows.Forms.Timer(this.components);
             this.zombieTimer = new System.Windows.Forms.Timer(this.components);
             this.placeCancelButton = new System.Windows.Forms.Button();
+            this.noSunLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameLoop
@@ -252,16 +253,17 @@
             // 
             // sunflowerTimer
             // 
-            this.sunflowerTimer.Interval = 5000;
+            this.sunflowerTimer.Interval = 3500;
             this.sunflowerTimer.Tick += new System.EventHandler(this.sunflowerTimer_Tick);
             // 
             // peashooterTimer
             // 
-            this.peashooterTimer.Interval = 5000;
+            this.peashooterTimer.Interval = 2000;
+            this.peashooterTimer.Tick += new System.EventHandler(this.peashooterTimer_Tick);
             // 
             // zombieTimer
             // 
-            this.zombieTimer.Interval = 3500;
+            this.zombieTimer.Interval = 8500;
             this.zombieTimer.Tick += new System.EventHandler(this.zombieTimer_Tick);
             // 
             // placeCancelButton
@@ -279,6 +281,16 @@
             this.placeCancelButton.UseVisualStyleBackColor = false;
             this.placeCancelButton.Click += new System.EventHandler(this.placeCancelButton_Click);
             // 
+            // noSunLabel
+            // 
+            this.noSunLabel.BackColor = System.Drawing.Color.Transparent;
+            this.noSunLabel.Font = new System.Drawing.Font("Papyrus", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noSunLabel.ForeColor = System.Drawing.Color.White;
+            this.noSunLabel.Location = new System.Drawing.Point(236, 82);
+            this.noSunLabel.Name = "noSunLabel";
+            this.noSunLabel.Size = new System.Drawing.Size(305, 60);
+            this.noSunLabel.TabIndex = 18;
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -286,6 +298,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::PlantsVsZombies.Properties.Resources.pVzBackgroundFix;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.noSunLabel);
             this.Controls.Add(this.placeCancelButton);
             this.Controls.Add(this.row2Space5Button);
             this.Controls.Add(this.row2Space4Button);
@@ -304,6 +317,7 @@
             this.Controls.Add(this.sunflowerLabel);
             this.Controls.Add(this.peaButton);
             this.Controls.Add(this.sunflowerButton);
+            this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(1110, 700);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
@@ -335,5 +349,6 @@
         private System.Windows.Forms.Timer peashooterTimer;
         private System.Windows.Forms.Timer zombieTimer;
         private System.Windows.Forms.Button placeCancelButton;
+        private System.Windows.Forms.Label noSunLabel;
     }
 }
