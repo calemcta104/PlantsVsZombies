@@ -30,7 +30,7 @@ namespace PlantsVsZombies
         int sun = 50;
 
         int plantSize = 50;
-        int health = 3;
+        int health = 5;
         int zombieSize = 100;
         int zombieSpeed = 1;
         int peaSpeed = 2;
@@ -232,7 +232,6 @@ namespace PlantsVsZombies
                     if (zombieRec.IntersectsWith(peaRec))
                     {
                         health -= 1;
-                        peaList.Remove(pe);
                     }
                 }
 
