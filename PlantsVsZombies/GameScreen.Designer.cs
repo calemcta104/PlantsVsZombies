@@ -258,12 +258,12 @@
             // 
             // peashooterTimer
             // 
-            this.peashooterTimer.Interval = 2000;
+            this.peashooterTimer.Interval = 3000;
             this.peashooterTimer.Tick += new System.EventHandler(this.peashooterTimer_Tick);
             // 
             // zombieTimer
             // 
-            this.zombieTimer.Interval = 8500;
+            this.zombieTimer.Interval = 11000;
             this.zombieTimer.Tick += new System.EventHandler(this.zombieTimer_Tick);
             // 
             // placeCancelButton

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace PlantsVsZombies
 {
@@ -194,7 +195,7 @@ namespace PlantsVsZombies
             {
                 foreach (peashooter p in peashooterList)
                 {
-                    Pea pea1 = new Pea(peaSize, p.x + 45, p.y + 5);
+                    Pea pea1 = new Pea(peaSize, p.x + 45, p.y - 15);
                     peaList.Add(pea1);
                 }
                 peaShot = false;
@@ -203,8 +204,6 @@ namespace PlantsVsZombies
             {
                 pe.Shoot(peaSpeed);
             }
-
-            //TODO - check for collision of zombies and peas
 
             //updating sun label
             sunLabel.Text = sun + " Sun";
@@ -225,13 +224,14 @@ namespace PlantsVsZombies
                        //TODO -  peashooterList.Remove();
                     }
                 }
-
+                //check for collision of zombies and peas
                 foreach (Pea pe in peaList)
                 {
                     Rectangle peaRec = new Rectangle(pe.x, pe.y, plantSize, plantSize);
                     if (zombieRec.IntersectsWith(peaRec))
                     {
                         health -= 1;
+                        peaList.RemoveAt(0);
                     }
                 }
 
@@ -250,7 +250,7 @@ namespace PlantsVsZombies
             
                 if (health == 0)
                 {
-                
+                //TODO zombieList.RemoveAt(0);
                 }
 
             //checking to see if places modes are activated
@@ -276,6 +276,13 @@ namespace PlantsVsZombies
                     sunflowerTimer.Enabled = false;
                     peashooterTimer.Enabled = false;
                     zombieTimer.Enabled = false;
+                    Thread.Sleep(1000);
+
+                    MainScreen ms = new MainScreen();
+
+                    this.Controls.Add(ms);
+
+                    ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
                 }
             }
             Refresh();

@@ -55,6 +55,7 @@
             this.quitButton.TabIndex = 8;
             this.quitButton.Text = "Quit";
             this.quitButton.UseVisualStyleBackColor = false;
+            this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
             // 
             // playButton
             // 
