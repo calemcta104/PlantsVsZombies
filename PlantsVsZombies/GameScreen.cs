@@ -16,7 +16,6 @@ namespace PlantsVsZombies
 {
     public partial class GameScreen : UserControl
     {
-        //TODO - code peas and damage
         #region Variables
         List<zombie> zombieList = new List<zombie>();
         List<sunflower> sunflowerList = new List<sunflower>();
@@ -29,19 +28,19 @@ namespace PlantsVsZombies
         Boolean peaShot = false;
 
         int sun = 50;
-
+        
         int plantSize = 50;
-        int health = 5;
+        int health = 1;
         int zombieSize = 100;
         int zombieSpeed = 1;
-        int peaSpeed = 2;
+        int peaSpeed = 7;
         int peaSize = 10;
 
         int laneOneHeight = 90;
         int laneTwoHeight = 270;
 
         Random randGen = new Random();
-#endregion
+        #endregion
 
         public GameScreen()
         {
@@ -54,20 +53,21 @@ namespace PlantsVsZombies
         {
             //start zombie timer
             zombieTimer.Enabled = true;
+            resumeButton.Visible = false;
         }
 
         public void ZombiePlace()
         {
             int rand = randGen.Next(1, 3);
-            if (rand == 1) 
-            { 
-            zombie zombie1 = new zombie(zombieSize, 800, laneOneHeight, health); 
-            zombieList.Add(zombie1); 
+            if (rand == 1)
+            {
+                zombie zombie1 = new zombie(zombieSize, 800, laneOneHeight, health);
+                zombieList.Add(zombie1);
             }
-            if (rand == 2) 
-            { 
-            zombie zombie2 = new zombie(zombieSize, 800, laneTwoHeight, health);
-            zombieList.Add(zombie2);
+            if (rand == 2)
+            {
+                zombie zombie2 = new zombie(zombieSize, 800, laneTwoHeight, health);
+                zombieList.Add(zombie2);
             }
 
         }
@@ -191,7 +191,7 @@ namespace PlantsVsZombies
             }
 
             //update movement of peas
-            if (peaShot == true)
+            if (peaShot == true && zombieList.Count >= 1)
             {
                 foreach (peashooter p in peashooterList)
                 {
@@ -208,50 +208,8 @@ namespace PlantsVsZombies
             //updating sun label
             sunLabel.Text = sun + " Sun";
 
-            // creating rectangles for plants
-            foreach (zombie z in zombieList)
-            {
-                Rectangle zombieRec = new Rectangle(z.x, z.y, zombieSize, zombieSize + 50);
-
-
-                //check for collision of plants and zombies
-                foreach (peashooter p in peashooterList)
-                {
-                    Rectangle peashooterRec = new Rectangle(p.x, p.y, plantSize, plantSize);
-                    if (zombieRec.IntersectsWith(peashooterRec))
-                    {
-                        //gameLoop.Enabled = false;
-                       //TODO -  peashooterList.Remove();
-                    }
-                }
-                //check for collision of zombies and peas
-                foreach (Pea pe in peaList)
-                {
-                    Rectangle peaRec = new Rectangle(pe.x, pe.y, plantSize, plantSize);
-                    if (zombieRec.IntersectsWith(peaRec))
-                    {
-                        health -= 1;
-                        peaList.RemoveAt(0);
-                    }
-                }
-
-                //check for collision of plants and zombies
-                foreach (sunflower s in sunflowerList)
-                {
-                    Rectangle sunflowerRec = new Rectangle(s.x, s.y, plantSize, plantSize);
-
-                    if (zombieRec.IntersectsWith(sunflowerRec))
-                    {
-                        //gameLoop.Enabled = false;
-                        //TODO - sunflowerList.Remove
-                    }
-                }
-            }
-            
-                if (health == 0)
-                {
-                //TODO zombieList.RemoveAt(0);
-                }
+            // collisions
+            Collisions();
 
             //checking to see if places modes are activated
             if (peashooterPlaceMode == true)
@@ -278,6 +236,17 @@ namespace PlantsVsZombies
                     zombieTimer.Enabled = false;
                     Thread.Sleep(1000);
 
+                    peaLabel.Visible = false;
+                    sunflowerLabel.Visible = false;
+                    sunLabel.Visible = false;
+                    noSunLabel.Visible = false;
+                    sunflowerButton.Visible = false;
+                    peaButton.Visible = false;
+                    shovelButton.Visible = false;
+                    placeCancelButton.Visible = false;
+                    pauseButton.Visible = false;
+                    PlaceCancel();
+
                     MainScreen ms = new MainScreen();
 
                     this.Controls.Add(ms);
@@ -288,7 +257,6 @@ namespace PlantsVsZombies
             Refresh();
         }
 
-
         private void sunflowerTimer_Tick(object sender, EventArgs e)
         {
             sun += 50;
@@ -296,6 +264,10 @@ namespace PlantsVsZombies
         private void zombieTimer_Tick(object sender, EventArgs e)
         {
             ZombiePlace();
+            if (zombieTimer.Interval >= 4500)
+            {
+                zombieTimer.Interval -= 500;
+            }
         }
         private void peashooterTimer_Tick(object sender, EventArgs e)
         {
@@ -303,14 +275,66 @@ namespace PlantsVsZombies
         }
         #endregion
 
+        public void Collisions()
+        {
+
+            foreach (zombie z in zombieList)
+            {
+                Rectangle zombieRec = new Rectangle(z.x, z.y, zombieSize, zombieSize + 50);
+
+
+                //check for collision of peashooters and zombies
+                foreach (peashooter p in peashooterList)
+                {
+                    Rectangle peashooterRec = new Rectangle(p.x, p.y, plantSize, plantSize);
+                    if (zombieRec.IntersectsWith(peashooterRec))
+                    {
+                        //gameLoop.Enabled = false;
+                        peashooterList.Remove(p);
+                        return;
+                    }
+                }
+                //check for collision of zombies and peas
+                foreach (Pea pe in peaList)
+                {
+                    Rectangle peaRec = new Rectangle(pe.x, pe.y, plantSize, plantSize);
+                    if (zombieRec.IntersectsWith(peaRec))
+                    {
+                        peaList.Remove(pe);
+                        zombieList.Remove(z);
+                        return;
+                    }
+                    else if (peaRec.X > this.Width)
+                    {
+                        peaList.Remove(pe);
+                        return;
+                    }
+                }
+
+                //check for collision of sunflowers and zombies
+                foreach (sunflower s in sunflowerList)
+                {
+                    Rectangle sunflowerRec = new Rectangle(s.x, s.y, plantSize, plantSize);
+
+                    if (zombieRec.IntersectsWith(sunflowerRec))
+                    {
+                        //gameLoop.Enabled = false;
+                        sunflowerList.Remove(s);
+                        return;
+                    }
+                }
+
+            }
+        }
+
         #region place buttons
         private void row1Space1Button_Click(object sender, EventArgs e)
         {
             if (peashooterPlaceMode == true && sun >= 100)
             {
-            peashooter pea1 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
-            peashooterList.Add(pea1);
-            peashooterTimer.Enabled = true;
+                peashooter pea1 = new peashooter(plantSize, 190 - plantSize, laneOneHeight + plantSize * 2);
+                peashooterList.Add(pea1);
+                peashooterTimer.Enabled = true;
                 PlaceCancel();
                 sun -= 100;
             }
@@ -325,7 +349,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-            //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                        peashooterList.Remove(p);
+                        return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -351,7 +384,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -377,7 +419,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -403,7 +454,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -429,7 +489,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -455,7 +524,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -481,7 +559,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -507,7 +594,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -533,7 +629,16 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
 
@@ -559,11 +664,33 @@ namespace PlantsVsZombies
             }
             else if (shovelMode == true)
             {
-                //remove plant
+                foreach (peashooter p in peashooterList)
+                {
+                    peashooterList.Remove(p);
+                    return;
+                }
+                foreach (sunflower s in sunflowerList)
+                {
+                    sunflowerList.Remove(s);
+                    return;
+                }
             }
         }
+
         #endregion
 
-      
+        #region pause
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            gameLoop.Enabled = false;
+            resumeButton.Visible = true;
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            gameLoop.Enabled = true;
+            resumeButton.Visible = false;
+        }
+        #endregion
     }
 }

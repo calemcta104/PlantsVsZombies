@@ -52,6 +52,7 @@
             this.zombieTimer = new System.Windows.Forms.Timer(this.components);
             this.placeCancelButton = new System.Windows.Forms.Button();
             this.noSunLabel = new System.Windows.Forms.Label();
+            this.resumeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gameLoop
@@ -140,6 +141,7 @@
             this.pauseButton.TabIndex = 6;
             this.pauseButton.Text = "Pause";
             this.pauseButton.UseVisualStyleBackColor = false;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // row2Space1Button
             // 
@@ -253,17 +255,17 @@
             // 
             // sunflowerTimer
             // 
-            this.sunflowerTimer.Interval = 3500;
+            this.sunflowerTimer.Interval = 5000;
             this.sunflowerTimer.Tick += new System.EventHandler(this.sunflowerTimer_Tick);
             // 
             // peashooterTimer
             // 
-            this.peashooterTimer.Interval = 3000;
+            this.peashooterTimer.Interval = 4500;
             this.peashooterTimer.Tick += new System.EventHandler(this.peashooterTimer_Tick);
             // 
             // zombieTimer
             // 
-            this.zombieTimer.Interval = 11000;
+            this.zombieTimer.Interval = 8500;
             this.zombieTimer.Tick += new System.EventHandler(this.zombieTimer_Tick);
             // 
             // placeCancelButton
@@ -291,6 +293,18 @@
             this.noSunLabel.Size = new System.Drawing.Size(305, 60);
             this.noSunLabel.TabIndex = 18;
             // 
+            // resumeButton
+            // 
+            this.resumeButton.BackColor = System.Drawing.Color.DarkGoldenrod;
+            this.resumeButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resumeButton.Location = new System.Drawing.Point(444, 205);
+            this.resumeButton.Name = "resumeButton";
+            this.resumeButton.Size = new System.Drawing.Size(235, 72);
+            this.resumeButton.TabIndex = 19;
+            this.resumeButton.Text = "Resume?";
+            this.resumeButton.UseVisualStyleBackColor = false;
+            this.resumeButton.Click += new System.EventHandler(this.resumeButton_Click);
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -298,6 +312,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::PlantsVsZombies.Properties.Resources.pVzBackgroundFix;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.resumeButton);
             this.Controls.Add(this.noSunLabel);
             this.Controls.Add(this.placeCancelButton);
             this.Controls.Add(this.row2Space5Button);
@@ -350,5 +365,6 @@
         private System.Windows.Forms.Timer zombieTimer;
         private System.Windows.Forms.Button placeCancelButton;
         private System.Windows.Forms.Label noSunLabel;
+        private System.Windows.Forms.Button resumeButton;
     }
 }
