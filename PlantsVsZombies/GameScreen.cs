@@ -1,6 +1,7 @@
 ﻿//October 5, 2020
 //Calem McTavish
 //Plants vs Zombies game
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace PlantsVsZombies
     public partial class GameScreen : UserControl
     {
         #region Variables
+        //lists for classes
         List<zombie> zombieList = new List<zombie>();
         List<sunflower> sunflowerList = new List<sunflower>();
         List<peashooter> peashooterList = new List<peashooter>();
@@ -27,8 +29,10 @@ namespace PlantsVsZombies
         Boolean shovelMode = false;
         Boolean peaShot = false;
 
+        //starting sun amount
         int sun = 50;
-        
+
+        //plant and zombie starting values
         int plantSize = 50;
         int health = 1;
         int zombieSize = 100;
@@ -36,6 +40,7 @@ namespace PlantsVsZombies
         int peaSpeed = 7;
         int peaSize = 10;
 
+        //lane heights for placing
         int laneOneHeight = 90;
         int laneTwoHeight = 270;
 
@@ -51,13 +56,13 @@ namespace PlantsVsZombies
 
         public void OnStart()
         {
-            //start zombie timer
             zombieTimer.Enabled = true;
             resumeButton.Visible = false;
         }
 
         public void ZombiePlace()
         {
+            //randomizes which lane the zombie will spawn in
             int rand = randGen.Next(1, 3);
             if (rand == 1)
             {
@@ -140,7 +145,21 @@ namespace PlantsVsZombies
             }
             foreach (sunflower s in sunflowerList)
             {
-                e.Graphics.DrawImage(Properties.Resources.sunflowerLeft, s.x, s.y);
+                //randomizing which sunfower sprite will appear
+                int rand = randGen.Next(1, 4);
+                if (rand == 1)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.sunflowerLeft, s.x, s.y);
+                }
+                if (rand == 2)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.sunflowerRightFix, s.x, s.y);
+                }
+                if (rand == 2)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.sunflowerUp, s.x, s.y);
+                }
+
             }
             foreach (peashooter p in peashooterList)
             {
@@ -259,7 +278,15 @@ namespace PlantsVsZombies
 
         private void sunflowerTimer_Tick(object sender, EventArgs e)
         {
-            sun += 50;
+            //the more sunflowers you get the more sun you get
+            if (sunflowerList.Count >= 1)
+            {
+                foreach (sunflower s in sunflowerList)
+                {
+                    sun += 50;
+                }
+
+            }
         }
         private void zombieTimer_Tick(object sender, EventArgs e)
         {
@@ -351,8 +378,9 @@ namespace PlantsVsZombies
             {
                 foreach (peashooter p in peashooterList)
                 {
-                        peashooterList.Remove(p);
-                        return;
+
+                    peashooterList.Remove(p);
+                    return;
                 }
                 foreach (sunflower s in sunflowerList)
                 {

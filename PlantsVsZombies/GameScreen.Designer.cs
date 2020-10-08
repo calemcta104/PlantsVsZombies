@@ -233,7 +233,7 @@
             // 
             // row2Space4Button
             // 
-            this.row2Space4Button.Location = new System.Drawing.Point(504, 556);
+            this.row2Space4Button.Location = new System.Drawing.Point(487, 556);
             this.row2Space4Button.Name = "row2Space4Button";
             this.row2Space4Button.Size = new System.Drawing.Size(72, 48);
             this.row2Space4Button.TabIndex = 15;
@@ -244,7 +244,7 @@
             // 
             // row2Space5Button
             // 
-            this.row2Space5Button.Location = new System.Drawing.Point(607, 556);
+            this.row2Space5Button.Location = new System.Drawing.Point(590, 556);
             this.row2Space5Button.Name = "row2Space5Button";
             this.row2Space5Button.Size = new System.Drawing.Size(72, 48);
             this.row2Space5Button.TabIndex = 16;
@@ -297,9 +297,9 @@
             // 
             this.resumeButton.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.resumeButton.Font = new System.Drawing.Font("Britannic Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resumeButton.Location = new System.Drawing.Point(444, 205);
+            this.resumeButton.Location = new System.Drawing.Point(518, 222);
             this.resumeButton.Name = "resumeButton";
-            this.resumeButton.Size = new System.Drawing.Size(235, 72);
+            this.resumeButton.Size = new System.Drawing.Size(123, 72);
             this.resumeButton.TabIndex = 19;
             this.resumeButton.Text = "Resume?";
             this.resumeButton.UseVisualStyleBackColor = false;
